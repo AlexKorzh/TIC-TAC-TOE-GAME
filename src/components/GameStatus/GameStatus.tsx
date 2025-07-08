@@ -9,7 +9,7 @@ interface GameStatusProps {
   currentPlayer: string;
 }
 
-export const GameStatus = ({winner, isDraw, currentPlayer}: GameStatusProps) => {
+export const GameStatus = ({ winner, isDraw, currentPlayer }: GameStatusProps) => {
   const containerClass = classNames(
     'w-full mb-8 flex flex-col items-center gap-2 px-6 py-[26px] rounded-lg shadow-md',
     'border-2 border-[rgba(226,232,240,1)]',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 import { getBaseStyles } from './getBaseStyles';
@@ -11,37 +11,38 @@ interface CellProps {
   isWinningCell?: boolean;
 }
 
-export const Cell = ({ value, onClick, isWinningCell = false }: CellProps) => {
+export const Cell = React.memo(({ value , onClick, isWinningCell = false }: CellProps) => {
   const isClickable = !value && !isWinningCell;
-  const styles = getBaseStyles(isClickable);
+  const styles = useMemo(() => getBaseStyles(isClickable), [isClickable]);
 
-  const getCellStyles = () => {
+  const cellStyles = useMemo(() => {
     if (isWinningCell) return [...styles.base, ...styles.winning];
     if (value === 'X') return [...styles.base, ...styles.xPlayer];
     if (value === 'O') return [...styles.base, ...styles.oPlayer];
 
     return [...styles.base, ...styles.empty];
-  };
+  }, [isWinningCell, styles, value]);
 
-  const getTextColor = () => {
+  const textColor = useMemo(() => {
     if (isWinningCell) return 'text-yellow-700';
     if (value === 'X') return 'text-red-500';
     if (value === 'O') return 'text-blue-500';
-
     return '';
-  };
+  }, [isWinningCell, value]);
 
   return (
     <motion.button
       onClick={onClick}
-      className={classNames(...getCellStyles())}
+      className={classNames(cellStyles)}
       whileHover={isClickable ? { scale: 1.02 } : {}}
       whileTap={isClickable ? { scale: 0.98 } : {}}
       disabled={!isClickable}
     >
-      <span className={getTextColor()}>
+      <span className={textColor}>
         {value}
       </span>
     </motion.button>
   );
-};
+});
+
+Cell.displayName = 'Cell';
