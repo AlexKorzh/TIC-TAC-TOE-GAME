@@ -1,0 +1,30 @@
+import React from 'react';
+import { Cell } from '@/components';
+import type { Board } from '@/types';
+
+interface GameBoardProps {
+  board: Board;
+  onCellClick: (index: number) => void;
+  winningLine?: number[];
+}
+
+export const GameBoard = ({
+  board,
+  onCellClick,
+  winningLine = [],
+}: GameBoardProps) => {
+  return (
+    <div className="py-[18px] px-[26px] rounded-[20px] border-2 border-[#E2E8F0] bg-white shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.10),0px_4px_6px_-4px_rgba(0,0,0,0.10)]">
+      <div className='grid grid-cols-3 gap-7 py-[16px] px-3 rounded-2xl bg-[rgba(30,41,59,0.50)]'>
+        {board.map((cell, index) => (
+          <Cell
+            key={index}
+            isWinningCell={winningLine.includes(index)}
+            onClick={() => onCellClick(index)}
+            value={cell}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
