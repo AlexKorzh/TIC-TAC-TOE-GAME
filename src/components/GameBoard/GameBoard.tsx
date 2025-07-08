@@ -3,7 +3,7 @@ import {Cell} from '@/components';
 import type {Board} from '@/types';
 
 interface MemoizedCellWrapperProps {
-  value: any;
+  value: 'X' | 'O' | null;
   index: number;
   isWinningCell: boolean;
   onCellClick: (index: number) => void;
