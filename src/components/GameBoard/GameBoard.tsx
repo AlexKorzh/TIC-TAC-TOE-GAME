@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
 import {Cell} from '@/components';
-import type {Board} from '@/types';
+import type { Board, CellValue } from '@/types';
 
 interface MemoizedCellWrapperProps {
-  value: 'X' | 'O' | null;
+  value: CellValue;
   index: number;
   isWinningCell: boolean;
   onCellClick: (index: number) => void;

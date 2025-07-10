@@ -2,8 +2,7 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 import { getBaseStyles } from './getBaseStyles';
-
-type CellValue = 'X' | 'O' | null;
+import { CellValue } from '@/types';
 
 interface CellProps {
   value: CellValue;

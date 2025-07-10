@@ -15,10 +15,9 @@ import { calculateWinner } from '@/utils';
 
 export default function Home() {
   const [board, setBoard] = useState<Board>(() => Array(9).fill(null));
-  const [isXNext, setIsXNext] = useState<boolean>(true);
 
   const { winner, line: winningLine } = calculateWinner(board);
-  const currentPlayer = isXNext ? 'X' : 'O';
+  const currentPlayer = board.filter(Boolean).length % 2 === 0 ? 'X' : 'O';
   const isDraw = !winner && board.every(square => square !== null);
 
   const handleCellClick = useCallback((index: number) => {
@@ -34,15 +33,10 @@ export default function Home() {
 
       return newBoard;
     });
-
-    setIsXNext(prev => !prev);
   }, []);
 
 
-  const resetGame = useCallback(() => {
-    setBoard(Array(9).fill(null));
-    setIsXNext(true);
-  }, []);
+  const resetGame = () => setBoard(Array(9).fill(null));
 
   return (
     <MainContainer>
